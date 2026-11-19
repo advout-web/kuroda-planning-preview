@@ -114,28 +114,44 @@ button { font: inherit; }
 .logo { display: inline-flex; align-items: center; gap: 10px; }
 .logo__mark { height: 40px; stroke-width: 5; }
 .logo__text { width: 188px; height: auto; }
-.gnav { display: flex; align-items: center; gap: 8px; }
+.gnav { display: flex; align-items: center; gap: 8px; margin-left: auto; }
 .gnav__list { display: flex; gap: 2px; }
-.gnav__list a { position: relative; display: block; padding: 10px 16px; border-radius: 999px; font-family: var(--f-head); font-size: 14px; color: var(--c-ink); transition: background .3s, color .3s; }
+.gnav__list a { position: relative; display: block; white-space: nowrap; padding: 10px 16px; border-radius: 999px; font-family: var(--f-head); font-size: 14px; color: var(--c-ink); transition: background .3s, color .3s; }
 .gnav__list a:hover { background: var(--c-soft); color: var(--c-ink); }
-.gnav__cta { position: relative; display: inline-flex; align-items: center; gap: 8px; margin-left: 8px; padding: 12px 22px; border-radius: 999px; background: var(--c-ink); color: #fff; font-family: var(--f-head); font-size: 14px; overflow: hidden; isolation: isolate; }
+.gnav__cta { position: relative; flex: none; display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: 999px; background: var(--c-ink); color: #fff; font-family: var(--f-head); font-size: 14px; overflow: hidden; isolation: isolate; }
 .gnav__cta::before { content: ""; position: absolute; inset: -2px; z-index: -1; background: var(--ring); opacity: 0; transition: opacity .4s; animation: spin 4s linear infinite; }
 .gnav__cta:hover { color: #fff; }
 .gnav__cta:hover::before { opacity: 1; }
-@media (max-width: 960px) {
+/* ヘッダーの SNS ボタン */
+.hsns { display: flex; align-items: center; gap: 6px; padding-left: 14px; border-left: 1.5px solid var(--c-line); }
+.hsns__btn { position: relative; display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; background: #fff; color: var(--c-ink); box-shadow: 0 6px 14px -10px rgba(29, 27, 38, .5); isolation: isolate; overflow: hidden; transition: transform .4s var(--ease-pop), color .3s; }
+.hsns__btn .icon { width: 20px; height: 20px; }
+.hsns__btn::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: 50%; transform: scale(0); transition: transform .45s var(--ease-pop); }
+.hsns__btn--instagram::before { background: radial-gradient(circle at 30% 110%, #FFC94D 0 25%, #FF6B3D 45%, #E2467A 65%, #8A4FD8 100%); }
+.hsns__btn--facebook::before { background: #1877F2; }
+.hsns__btn--x::before { background: #000; }
+.hsns__btn:hover { color: #fff; transform: translateY(-3px); }
+.hsns__btn:hover::before { transform: scale(1); }
+.hsns__btn--instagram .icon { animation: snsWiggle 6s ease-in-out infinite; }
+@keyframes snsWiggle { 0%, 88%, 100% { transform: rotate(0); } 91% { transform: rotate(-14deg) scale(1.1); } 95% { transform: rotate(10deg); } }
+@media (max-width: 1120px) {
 	:root { --header-h: 68px; }
 	.gnav { display: none; }
+	.gnav__cta { display: none; }
+	.hsns { margin-left: auto; padding-left: 0; border-left: 0; gap: 4px; }
+	.hsns__btn { width: 38px; height: 38px; }
+	.hsns__btn .icon { width: 18px; height: 18px; }
 	.site-header { padding: 8px 0; }
 	.site-header__inner { padding: 8px 16px; }
 	.logo__mark { height: 32px; }
 	.logo__text { width: 150px; }
 }
 
-/* スマホ：画面下のタブバー（アプリのナビ） */
+/* スマホ・タブレット：画面下のタブバー（アプリのナビ） */
 .tabbar { display: none; }
-@media (max-width: 960px) {
+@media (max-width: 1120px) {
 	body { padding-bottom: calc(72px + env(safe-area-inset-bottom)); }
-	.tabbar { position: fixed; left: 10px; right: 10px; bottom: calc(10px + env(safe-area-inset-bottom)); z-index: 1100; display: grid; grid-template-columns: repeat(5, 1fr); padding: 6px; border-radius: 22px; background: rgba(29, 27, 38, .92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 14px 30px -12px rgba(29, 27, 38, .6); }
+	.tabbar { position: fixed; left: 10px; right: 10px; max-width: 560px; margin-inline: auto; bottom: calc(10px + env(safe-area-inset-bottom)); z-index: 1100; display: grid; grid-template-columns: repeat(5, 1fr); padding: 6px; border-radius: 22px; background: rgba(29, 27, 38, .92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 14px 30px -12px rgba(29, 27, 38, .6); }
 	.tabbar a { display: grid; justify-items: center; gap: 2px; padding: 7px 2px 5px; border-radius: 16px; color: rgba(255, 255, 255, .72); font-family: var(--f-en); font-size: 9.5px; letter-spacing: .02em; line-height: 1.2; }
 	.tabbar a .icon { width: 22px; height: 22px; }
 	.tabbar a.is-current, .tabbar a:hover { color: #fff; background: rgba(255, 255, 255, .1); }
